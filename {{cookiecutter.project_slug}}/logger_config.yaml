@@ -1,0 +1,28 @@
+version: 1
+formatters:
+  standard:
+    format: '[%(asctime)s][%(threadName)s:%(thread)d][%(name)s:%(levelname)s(%(lineno)d)]--[%(module)s:%(funcName)s]:%(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: standard
+    stream: ext://sys.stdout
+  info:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: standard
+    filename: log/normal.log
+    maxBytes: 16777216 # 1024 * 1024 * 16 - 16M
+    encoding: utf8
+  error:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: standard
+    filename: log/error.log
+    maxBytes: 16777216 # 1024 * 1024 * 16 - 16M
+    backupCount: 3
+    encoding: utf8
+root:
+  level: DEBUG
+  handlers: [info, error, console]
